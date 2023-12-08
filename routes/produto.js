@@ -11,7 +11,7 @@ import {
 const router = express.Router();
 
 router.get("/", listarProdutos);
-router.get("/:marca", listarProdutoPorMarca);
+router.get("/:brand", listarProdutoPorMarca);
 router.post("/", criarProduto);
 router.put("/", editarProduto);
 router.get("/:id", listarProdutoPorId);

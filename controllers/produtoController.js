@@ -1,9 +1,9 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 import { Produto } from "../models/produto.js";
 
 export async function listarProdutos(req, res) {
   try {
-    const todosOsProdutos = Produto.find();
+    const todosOsProdutos = await Produto.find();
 
     res.json(todosOsProdutos);
   } catch (erro) {
@@ -12,11 +12,25 @@ export async function listarProdutos(req, res) {
   }
 }
 
+export async function listarProdutoPorMarca(req, res) {
+  try {
+    const marca = req.params.id;
+    const produtos = await Produto.find({ marca });
+
+    res.json(produtos);
+  } catch (erro) {
+    console.error(erro);
+    res
+      .status(500)
+      .json({ erro: `Erro ao encontrar produtos da marca ${marca}` });
+  }
+}
+
 export async function listarProdutoPorId(req, res) {
   try {
     const idProduto = req.params.id;
 
-    const produtoEncontrado = Produto.findById(idProduto);
+    const produtoEncontrado = await Produto.findById(idProduto);
 
     res.json(produtoEncontrado);
   } catch (erro) {

@@ -14,8 +14,8 @@ export async function listarProdutos(req, res) {
 
 export async function listarProdutoPorMarca(req, res) {
   try {
-    const marca = req.params.id;
-    const produtos = await Produto.find({ marca });
+    const { brand } = req.params;
+    const produtos = await Produto.find({ brand });
 
     res.json(produtos);
   } catch (erro) {
@@ -90,7 +90,7 @@ export async function deletarProduto(req, res) {
 
     const produtoDeletado = await Produto.findByIdAndDelete(idProduto);
 
-    res.send.status(200);
+    res.status(204).send();
   } catch (erro) {
     console.error(erro);
     res.status(500).json({ erro: "Erro ao deletar produto" });
